@@ -1,0 +1,412 @@
+.prediction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.05);
+  padding: 1rem;
+}
+
+.card h2,
+.card h3 {
+  margin: 0 0 0.4rem;
+}
+
+.card p {
+  margin-top: 0;
+}
+
+.upload-zone {
+  margin-top: 0.8rem;
+  border: 2px dashed #94a3b8;
+  border-radius: 0.8rem;
+  padding: 0.9rem;
+  display: block;
+  cursor: pointer;
+  background: #f8fafc;
+}
+
+.upload-zone input {
+  display: none;
+}
+
+.preview-wrap {
+  margin-top: 1rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.preview-wrap img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.primary-btn {
+  margin-top: 1rem;
+  width: 100%;
+  background: #2563eb;
+  color: #ffffff;
+  border: 0;
+  border-radius: 0.7rem;
+  padding: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loader-row {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e1;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.result-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.step-title {
+  margin-top: 0.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.4rem;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.quality-banner {
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.quality-banner.reject {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.quality-banner.accept {
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.label {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.value {
+  margin: 0.3rem 0 0;
+  font-weight: 600;
+}
+
+.muted {
+  color: #64748b;
+}
+
+.error {
+  margin-top: 0.6rem;
+  color: #b91c1c;
+}
+
+.debug-label {
+  margin: 0.5rem 0 0.2rem;
+  font-size: 0.85rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.debug-box {
+  margin: 0;
+  max-height: 160px;
+  overflow: auto;
+  font-size: 0.75rem;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 0.45rem;
+  padding: 0.55rem;
+}
+
+.compact-result {
+  max-height: 460px;
+  overflow: auto;
+}
+
+.gradcam-block {
+  margin-top: 0.2rem;
+}
+
+.gradcam-image {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 0.6rem;
+  border: 1px solid #e2e8f0;
+  display: block;
+}
+
+.report-wrapper {
+  margin-top: 1rem;
+}
+
+.rejected-report-note {
+  margin-top: 0.7rem;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  color: #9a3412;
+  border-radius: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  font-weight: 600;
+}
+
+.rejected-report-note p {
+  margin: 0;
+}
+
+.report-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.6rem;
+}
+
+.print-btn {
+  background: #0f766e;
+  color: #ffffff;
+  border: 0;
+  border-radius: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.report-sheet {
+  background: #e6e6e6;
+  border: 1px solid #3f3f46;
+  padding: 0.45rem;
+  color: #111827;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.report-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid #52525b;
+  padding: 0.6rem;
+  background: #dedede;
+}
+
+.qr-box {
+  width: 72px;
+  height: 72px;
+  border: 2px solid #111827;
+  background: repeating-linear-gradient(
+    45deg,
+    #111827,
+    #111827 4px,
+    #f9fafb 4px,
+    #f9fafb 8px
+  );
+  color: #f9fafb;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.report-title {
+  text-align: right;
+}
+
+.report-title h2,
+.report-title h3,
+.report-title p {
+  margin: 0;
+}
+
+.report-title h2 {
+  color: #3730a3;
+  font-size: 2rem;
+}
+
+.report-title h3 {
+  margin-top: 0.35rem;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.report-title p {
+  margin-top: 0.2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.report-link-note {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.patient-meta {
+  margin-top: 0.5rem;
+  border: 1px solid #52525b;
+  padding: 0.7rem;
+  background: #e7e7e7;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.patient-meta p {
+  margin: 0.3rem 0;
+}
+
+.section-title {
+  margin: 0.7rem 0 0;
+  background: #67e8c9;
+  border: 1px solid #0f766e;
+  padding: 0.35rem 0.45rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.fundus-grid {
+  border: 1px solid #52525b;
+  border-top: 0;
+  padding: 0.8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background: #e7e7e7;
+}
+
+.eye-panel {
+  text-align: center;
+}
+
+.eye-label {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+
+.eye-label span {
+  color: #2f855a;
+}
+
+.eye-panel img {
+  width: 100%;
+  max-width: 250px;
+  height: 250px;
+  object-fit: contain;
+  background: #000000;
+  border: 1px solid #1f2937;
+}
+
+.foot-note {
+  margin: 0;
+  border: 1px solid #52525b;
+  border-top: 0;
+  padding: 0.45rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.diagnosis-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #e7e7e7;
+}
+
+.diagnosis-table th,
+.diagnosis-table td {
+  border: 1px solid #3f3f46;
+  padding: 0.45rem;
+  vertical-align: top;
+}
+
+.diagnosis-table th {
+  width: 17%;
+  text-align: left;
+  background: #f3f4f6;
+}
+
+.screening-cell {
+  width: 30%;
+  font-size: 0.98rem;
+}
+
+.recommend-list {
+  margin: 0;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid #52525b;
+  border-top: 0;
+  background: #e7e7e7;
+  font-weight: 600;
+}
+
+.recommend-list li {
+  margin: 0 0 0.45rem;
+}
+
+@media print {
+  .prediction-grid,
+  .topbar,
+  .report-actions {
+    display: none !important;
+  }
+
+  .report-sheet {
+    border: 1px solid #111827;
+  }
+}
+
+@media (max-width: 900px) {
+  .prediction-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-meta,
+  .fundus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-title h3 {
+    font-size: 1.5rem;
+  }
+}

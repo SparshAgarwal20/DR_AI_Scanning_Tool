@@ -1,0 +1,73 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0 Calibri;}}
+\fs22
+\b DR Screening AI Tool - Technology Stack Document\b0\par
+\par
+\b Project Summary\b0\par
+This document explains the technology stack used in the DR Screening AI Tool, why each technology is used, and why it is the best fit for this project.\par
+\par
+\b Tech Stack Table\b0\par
+\par
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl\b Layer\b0\cell\b Technology\b0\cell\b Why We Use It\b0\cell\b Why It Is Best for Our Work\b0\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl API Backend\cell FastAPI\cell To create DR and quality prediction APIs\cell High performance, async support, lightweight architecture\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl API Server\cell Uvicorn\cell To run FastAPI as ASGI server\cell Fast startup and production-friendly runtime\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Deep Learning\cell PyTorch (torch)\cell For model training and inference\cell Flexible, reliable, and strong for medical vision workflows\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Vision Models\cell torchvision (EfficientNet B0/B3)\cell For pretrained models and transforms\cell Great accuracy-speed balance for retinal image classification\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Image Processing\cell Pillow (PIL)\cell To read, convert, and save images\cell Stable and standard Python image processing library\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Numerical Computing\cell NumPy\cell Array and numeric operations\cell Fast operations and easy integration with ML stack\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Explainable AI\cell pytorch-grad-cam\cell To generate model heatmaps\cell Improves trust and interpretability in medical predictions\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl File Upload\cell python-multipart\cell To support API image upload\cell Standard, reliable FastAPI-compatible upload support\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl DB Connectivity\cell pyodbc\cell To connect Python service with SQL Server\cell Enterprise-friendly integration on Windows ecosystem\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Database\cell Microsoft SQL Server\cell To store predictions, quality logs, and audit data\cell Reliable, structured, and reporting/audit ready\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Model Files\cell .pt checkpoints\cell To deploy trained DR and quality models\cell Fast loading with reproducible inference behavior\cell\row
+
+\trowd\trgaph108\trleft0
+\cellx1800\cellx4200\cellx7600\cellx11200
+\intbl Training Utility\cell scikit-learn (class weights)\cell To handle class imbalance\cell Better learning for minority DR severity classes\cell\row
+
+\par
+\b Why This Complete Stack Works Best\b0\par
+- End-to-end flow: upload -> quality screening -> DR prediction -> explanation -> logging\par
+- Balanced performance and accuracy with EfficientNet models\par
+- Explainability through Grad-CAM for clinical confidence\par
+- SQL-backed audit trail for traceability and reporting\par
+- Easy scaling from PoC to production deployment\par
+\par
+\b Prepared For:\b0 DR Screening AI Tool\par
+\b Date:\b0 March 6, 2026\par
+}

@@ -1,0 +1,21 @@
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-dot"></div>
+      <div>
+        <h1>{{ title }}</h1>
+        <p>Angular + FastAPI Medical AI Console</p>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/prediction" routerLinkActive="active">Prediction</a>
+      <a routerLink="/processed-files" routerLinkActive="active">Processed Files</a>
+    </nav>
+  </header>
+
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>

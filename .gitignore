@@ -1,0 +1,5 @@
+venv/
+dr-ai-service/venv/
+*.dll
+*.pyd
+__pycache__/

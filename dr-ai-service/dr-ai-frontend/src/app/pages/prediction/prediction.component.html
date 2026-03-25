@@ -1,0 +1,191 @@
+<section class="prediction-grid">
+  <div class="card">
+    <h2>Prediction</h2>
+    <p>Upload retina image first, then click predict.</p>
+
+    <label class="upload-zone" for="fileInput">
+      <input id="fileInput" type="file" accept="image/*" (change)="onFileSelected($event)" />
+      <span>{{ selectedFile ? selectedFile.name : 'Click to upload retina image' }}</span>
+    </label>
+
+    @if (previewUrl) {
+      <div class="preview-wrap">
+        <img [src]="previewUrl" alt="Uploaded preview" />
+      </div>
+    }
+
+    <button type="button" class="primary-btn" [disabled]="predicting" (click)="onPredict()">
+      {{ predicting ? 'Predicting...' : 'Predict' }}
+    </button>
+
+    @if (predicting) {
+      <div class="loader-row">
+        <span class="loader"></span>
+        <span>Running quality check and DR prediction...</span>
+      </div>
+    }
+
+    @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+    }
+  </div>
+
+  <div class="card compact-result">
+    <h3>Result</h3>
+
+    @if (!predictionAttempted && !predicting) {
+      <p class="muted">No prediction yet.</p>
+    }
+
+    @if (predicting) {
+      <p class="muted">Running model inference...</p>
+    }
+
+    @if (predictionAttempted && errorMessage) {
+      <p class="error"><strong>API Error:</strong> {{ errorMessage }}</p>
+    }
+
+    @if (result) {
+      <div class="result-grid">
+        <div class="step-title">Step 1: Image Quality</div>
+        <div class="quality-banner" [class.reject]="isQualityRejected()" [class.accept]="!isQualityRejected()">
+          {{ getQualityAlertMessage() }}
+        </div>
+
+        <div>
+          <p class="label">Quality</p>
+          <p class="value">{{ getQualityText() }} ({{ getQualityConfidence() | percent:'1.0-2' }})</p>
+        </div>
+
+        @if (result.message) {
+          <div>
+            <p class="label">Message</p>
+            <p class="value">{{ result.message }}</p>
+          </div>
+        }
+
+        <div class="step-title">Step 2: DR Prediction</div>
+
+        @if (result.dr_result) {
+          <div>
+            <p class="label">DR Class</p>
+            <p class="value">{{ getDrClassText() || 'Not available' }} ({{ getDrConfidence() | percent:'1.0-2' }})</p>
+          </div>
+
+          <div>
+            <p class="label">ETDRS</p>
+            <p class="value">{{ result.dr_result.etdrs_score }} - {{ result.dr_result.etdrs_label }}</p>
+          </div>
+
+          <div>
+            <p class="label">Description</p>
+            <p class="value">{{ result.dr_result.etdrs_description }}</p>
+          </div>
+
+          @if (getGradcamImageSrc()) {
+            <div class="gradcam-block">
+              <p class="label">GradCAM</p>
+              <img [src]="getGradcamImageSrc()!" alt="GradCAM output" class="gradcam-image" />
+            </div>
+          }
+        } @else {
+          <div>
+            <p class="value">DR prediction skipped because image quality is not acceptable.</p>
+          </div>
+        }
+
+        @if (rawResultText) {
+          <div>
+            <p class="label">Raw API Response</p>
+            <pre class="debug-box">{{ rawResultText }}</pre>
+          </div>
+        }
+      </div>
+    }
+
+    @if (predictionAttempted && !result && !predicting) {
+      <p class="muted">No result parsed from API response.</p>
+      @if (lastApiPayload) {
+        <p class="debug-label">API payload:</p>
+        <pre class="debug-box">{{ lastApiPayload }}</pre>
+      }
+    }
+  </div>
+</section>
+
+@if (result && isQualityRejected()) {
+  <section class="rejected-report-note">
+    <p>{{ getQualityAlertMessage() }}</p>
+  </section>
+}
+
+@if (result && previewUrl && hasDrResult()) {
+  <section class="report-wrapper">
+    <div class="report-actions">
+      <button type="button" class="print-btn" (click)="printReport()">Print / Save as PDF</button>
+    </div>
+
+    <article class="report-sheet">
+      <header class="report-top">
+        <div class="qr-box">QR</div>
+        <div class="report-title">
+          <h2>Drishti AI</h2>
+          <h3>Eye Screen Service</h3>
+          <p>Diabetic Retinopathy Screening Report</p>
+        </div>
+      </header>
+
+      <p class="report-link-note">* Link to download/view report</p>
+
+      <section class="patient-meta">
+        <div>
+          <p><strong>Patient MRN:</strong> {{ patient.mrn }}</p>
+          <p><strong>Patient Name:</strong> {{ patient.name }}</p>
+          <p><strong>Doctor Name:</strong> {{ patient.doctor }}</p>
+        </div>
+        <div>
+          <p><strong>Imaging Date-Time:</strong> {{ reportGeneratedAt | date:'EEE dd MMM HH:mm:ss y' }}</p>
+          <p><strong>Report Date-Time:</strong> {{ reportGeneratedAt | date:'EEE dd MMM HH:mm:ss y' }}</p>
+        </div>
+      </section>
+
+      <h4 class="section-title">FUNDUS IMAGES USED IN EXAM</h4>
+
+      <section class="fundus-grid">
+        <div class="eye-panel">
+          <p class="eye-label">OS(LE): <span>{{ getEyeFindingText() }}</span></p>
+          <img [src]="previewUrl" alt="Left eye fundus" />
+        </div>
+        <div class="eye-panel">
+          <p class="eye-label">OD(RE): <span>{{ getEyeFindingText() }}</span></p>
+          @if (getGradcamImageSrc()) {
+            <img [src]="getGradcamImageSrc()!" alt="Right eye GradCAM" />
+          } @else {
+            <img [src]="previewUrl" alt="Right eye fundus" />
+          }
+        </div>
+      </section>
+
+      <p class="foot-note">Image orientation and labeling is for reference purpose only and should not be used for diagnostic purpose.</p>
+
+      <h4 class="section-title">DIAGNOSIS AND ICD-10 CODES</h4>
+      <table class="diagnosis-table">
+        <tr>
+          <th>Condition</th>
+          <td>Diabetic Retinopathy, Diabetic Macular Edema</td>
+          <td rowspan="2" class="screening-cell"><strong>Screening Result:</strong> {{ getScreeningSummary() }}</td>
+        </tr>
+        <tr>
+          <th>Diagnosis</th>
+          <td>{{ getDiagnosisCode() }}</td>
+        </tr>
+      </table>
+
+      <h4 class="section-title">RECOMMENDATION</h4>
+      <ol class="recommend-list">
+        <li>Consult an Ophthalmologist within 12 months.</li>
+        <li>Get your eyes screened for DR at the recommended follow-up window.</li>
+      </ol>
+    </article>
+  </section>
+}

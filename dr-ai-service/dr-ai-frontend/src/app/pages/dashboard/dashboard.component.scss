@@ -1,0 +1,97 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.hero-card,
+.metric-card,
+.panel {
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.05);
+}
+
+.hero-card {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #1d4ed8 0%, #7e22ce 100%);
+  color: #ffffff;
+}
+
+.hero-card h2 {
+  margin: 0 0 0.6rem;
+}
+
+.hero-card p {
+  margin: 0;
+  opacity: 0.95;
+}
+
+.metric-card {
+  padding: 1rem;
+}
+
+.label {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.metric-card h3 {
+  margin: 0.4rem 0 0;
+  font-size: 1.2rem;
+}
+
+.panel {
+  padding: 1rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.panel-header h3 {
+  margin: 0;
+}
+
+.panel-header a {
+  font-size: 0.9rem;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.7rem;
+}
+
+.file-item a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.muted {
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

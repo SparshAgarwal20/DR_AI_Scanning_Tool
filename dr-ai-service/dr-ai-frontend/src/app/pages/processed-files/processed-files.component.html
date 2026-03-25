@@ -1,0 +1,37 @@
+<section class="card">
+  <div class="header">
+    <h2>Processed Files</h2>
+    <p>All files that were successfully processed by DR pipeline.</p>
+  </div>
+
+  @if (loading) {
+    <p class="muted">Loading files...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (!files.length) {
+    <p class="muted">No processed files available.</p>
+  } @else {
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>File Name</th>
+            <th>Path</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (file of files; track file.file_name; let i = $index) {
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ file.file_name }}</td>
+              <td>{{ file.file_path }}</td>
+              <td><a [href]="file.url" target="_blank" rel="noopener">Open</a></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
